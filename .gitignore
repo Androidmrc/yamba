@@ -1,0 +1,9 @@
+.DS_*
+.checkstyle
+.classpath
+.project
+.settings
+/bin
+/gen
+/libs
+lint.xml

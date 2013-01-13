@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/yamba_large_bold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/status_title" />
+
+    <TextView
+        android:id="@+id/count_text"
+        style="@style/yamba_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingRight="2dp"
+        android:text="@string/status_len" />
+
+    <EditText
+        android:id="@+id/status_text"
+        style="@style/yamba_main"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/fog"
+        android:gravity="top|center_horizontal"
+        android:hint="@string/status_hint"
+        android:inputType="textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine" />
+
+    <Button
+        android:id="@+id/status_button"
+        style="@style/yamba_medium_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button"
+        android:text="@string/status_submit" />
+
+</LinearLayout>

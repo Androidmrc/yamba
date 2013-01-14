@@ -23,7 +23,7 @@ public class TimelineActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.itemTimeline:
+            case R.id.item_timeline:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

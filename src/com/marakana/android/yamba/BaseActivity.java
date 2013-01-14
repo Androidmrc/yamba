@@ -1,13 +1,19 @@
 package com.marakana.android.yamba;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
+@SuppressLint("Registered")
 public class BaseActivity extends Activity {
     private static final String TAG = "BASE";
 
@@ -23,25 +29,38 @@ public class BaseActivity extends Activity {
         int id = item.getItemId();
         if (BuildConfig.DEBUG) { Log.d(TAG, "menu selected"); }
         switch (id) {
-            case R.id.itemTimeline:
+            case android.R.id.home:
+            case R.id.item_timeline:
                 startActivity(new Intent(this, TimelineActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+                    .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
                 break;
 
-            case R.id.itemStatus:
+            case R.id.item_status:
                 startActivity(new Intent(this, StatusActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+                    .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
                 break;
 
-            case R.id.itemPrefs:
+            case R.id.item_prefs:
                 startActivity(new Intent(this, PrefsActivity.class));
-                return true;
+                break;
+
+            case R.id.item_about:
+                Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show();
+                break;
 
             default:
-                Log.w(TAG, "Unrecognized menu item: " + item);
-                return false;
+                return super.onOptionsItemSelected(item);
         }
 
         return true;
     }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            getActionBar().setHomeButtonEnabled(true);
+        }
+   }
 }

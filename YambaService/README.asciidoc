@@ -1,0 +1,22 @@
+:copyright: Marakana.com
+:author: Marakana Android Expert Team
+
+[[Yamba]]
+= About Yamba {title_suffix? {title_suffix}} =
+
+{copyright? {copyright}}
+{revdate? {revdate}}
+
+== About YambaII Service ==
+
+YambaII is Yet Another Micro Blogging App. It was written to support various Marakana Android training classes, most specifically Marakana Android Bootcamp, and is an evolution of the project from Learning Android book written by Marko Gargenta.
+
+YambaII has two parts: a front end client and a Content Provider service.
+Be sure to install the service before trying to use the front-end client
+
+This is the service
+
+Fork it at http://GitHub.com/Marakana/YambaII
+
+Happy hacking!
+- Marakana Android Team

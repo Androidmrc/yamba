@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.marakana.android.yamba.svc"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <permission
+        android:name="com.marakana.yamba.content.POLL"
+        android:protectionLevel="dangerous" />
+    <permission
+        android:name="com.marakana.yamba.content.PERM_READ"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.marakana.yamba.content.PERM_WRITE"
+        android:protectionLevel="dangerous" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".YambaApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_yamba"
+        android:label="@string/yamba_service"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".PrefsActivity"
+            android:label="@string/yamba_service" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".data.YambaProvider"
+            android:authorities="com.marakana.yamba.content"
+            android:exported="true"
+            android:readPermission="com.marakana.yamba.content.PERM_READ"
+            android:writePermission="com.marakana.yamba.content.PERM_WRITE" />
+
+        <service
+            android:name=".YambaService"
+            android:permission="com.marakana.yamba.content.POLL" >
+            <intent-filter>
+                <action android:name="com.marakana.yamba.content.POLL" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

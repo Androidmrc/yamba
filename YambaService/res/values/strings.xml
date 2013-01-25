@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="yamba_service">YambaService</string>
+    
+    <string name="prefs_heading">Connection Preferences</string>
+    <string name="prefs_title">Settings</string>
+    <string name="prefs_key_user">PREFS_USER</string>
+    <string name="prefs_title_user">User Name</string>
+    <string name="prefs_key_pwd">PREFS_PWD</string>
+    <string name="prefs_title_pwd">Password</string>
+    <string name="prefs_key_endpoint">PREFS_URL</string>
+    <string name="prefs_title_endpoint">Site URL</string>
+    <string name="prefs_summary_endpoint">The URL for the microblogging service</string>
+
+</resources>

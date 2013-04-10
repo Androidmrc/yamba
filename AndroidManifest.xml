@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.marakana.android.yamba"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+    <application
+        android:name=".YambaApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_yamba"
+        android:label="@string/yamba"
+        android:theme="@style/AppTheme" >
+
+        <!-- android:uiOptions="splitActionBarWhenNarrow" -->
+
+        <activity
+            android:name=".TimelineActivity"
+            android:label="@string/yamba" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StatusActivity"
+            android:label="@string/status_title" />
+        <activity
+            android:name=".TimelineDetailActivity"
+            android:label="@string/timeline_detail_title" />
+        <activity
+            android:name=".PrefsActivity"
+            android:label="@string/prefs_title" />
+
+        <service android:name=".svc.YambaService" />
+
+        <provider
+            android:name=".svc.YambaProvider"
+            android:authorities="com.marakana.yamba.content"
+            android:exported="false" />
+
+        <receiver android:name=".BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

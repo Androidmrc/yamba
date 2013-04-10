@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Application -->
+    <string name="yamba">Yamba II</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about">Yamba II:\n\t Marko Garganta\n\t Ken Jones\n\t Blake Meike</string>
+
+    <!-- Timeline -->
+    <string name="timeline_title">Timeline</string>
+
+    <!-- Timeline Detail -->
+    <string name="timeline_detail_title">Details</string>
+    <string name="timeline_detail_hint">no details&#8230;</string>
+
+    <!-- Status -->
+    <string name="status_title">Status</string>
+    <string name="status_len">140</string>
+    <string name="status_hint">Please enter your 140 character status</string>
+    <string name="status_submit">Submit</string>
+
+    <!-- Prefs -->
+    <string name="prefs_heading">Connection Preferences</string>
+    <string name="prefs_title">Settings</string>
+    <string name="prefs_key_user">PREFS_USER</string>
+    <string name="prefs_title_user">User Name</string>
+    <string name="prefs_key_pwd">PREFS_PWD</string>
+    <string name="prefs_title_pwd">Password</string>
+    <string name="prefs_key_endpoint">PREFS_URL</string>
+    <string name="prefs_title_endpoint">Site URL</string>
+    <string name="prefs_summary_endpoint">The URL for the microblogging service</string>
+
+</resources>

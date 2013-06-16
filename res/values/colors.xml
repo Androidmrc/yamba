@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="sea_blue">#0055cc</color>
+    <color name="bright_sea_blue">#0077cc</color>
+    <color name="fog">#778888dd</color>
+    <color name="ok">#009900</color>
+    <color name="warn">#ffdd00</color>
+    <color name="error">#cc2200</color>
+
+</resources>

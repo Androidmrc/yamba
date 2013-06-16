@@ -1,0 +1,52 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowBackground">@drawable/mavericks</item>
+       
+        <!-- Doesn't work...
+          <item name="android:preferenceCategoryStyle">@style/yamba_medium_bold</item>
+          <item name="android:editTextPreferenceStyle">@style/yamba_main</item>
+         -->
+   </style>
+
+    <style name="yamba_text" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:textColor">@color/sea_blue</item>
+    </style>
+        
+    <style name="yamba_text_bold" parent="style/yamba_text">
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="yamba_text_small" parent="style/yamba_text">
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="yamba_text_small_bold" parent="style/yamba_text_bold">
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="yamba_text_medium" parent="style/yamba_text">
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <style name="yamba_text_medium_bold" parent="style/yamba_text_bold">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="yamba_label" parent="yamba_text_bold">
+        <item name="android:textSize">36sp</item>
+    </style>
+</resources>

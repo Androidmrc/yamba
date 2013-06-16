@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- app -->
+    <string name="app_name">Yamba</string>
+
+    <!-- menu -->
+    <string name="menu_timeline">timeline</string>
+    <string name="menu_status">status</string>
+    <string name="menu_about">about</string>
+    <string name="menu_prefs">prefs</string>
+    <string name="about">Yamba!\nWritten by:\n Bootcamp class of June 10, 2013</string>
+    
+    <!-- status -->
+    <string name="title_status">Status</string>
+    <string name="status_count">140</string>
+    <string name="status_hint">What\'s up?  (140 chars or less)</string>
+    <string name="status_submit">Submit</string>
+    <string name="fail">Failed posting status!</string>
+    <string name="succeed">Status posted!</string>
+  
+    <!-- timeline -->
+  
+    <!-- timeline details -->
+    <string name="title_timeline_detail">Timeline Detail</string>
+    <string name="timeline_detail_hint">details&#8230;</string>
+    <string name="timeline_permissions_label">Timeline Cache</string>
+    <string name="timeline_read">Permission to read the Yamba timeline</string>
+    <string name="timeline_write">Permissiong to write the Yamba timeline</string>
+    
+    <!-- prefs -->
+    <string name="title_prefs">Settings</string>
+    <string name="prefs_heading">Connection Preferences</string>
+    <string name="prefs_key_user">PREFS_USER</string>
+    <string name="prefs_title_user">User Name</string>
+    <string name="prefs_key_pwd">PREFS_PWD</string>
+    <string name="prefs_title_pwd">Password</string>
+    <string name="prefs_key_endpoint">PREFS_URL</string>
+    <string name="prefs_title_endpoint">Site URL</string>
+    <string name="prefs_summary_endpoint">The URL for the microblogging service</string>
+    
+</resources>

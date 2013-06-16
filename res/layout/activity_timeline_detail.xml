@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StatusActivity" >
+
+    <fragment
+        android:id="@+id/fragment_timeline_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.marakana.android.yamba.TimelineDetailFragment" />
+
+</FrameLayout>

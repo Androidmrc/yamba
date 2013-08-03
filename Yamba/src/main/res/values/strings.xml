@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name">Yamba</string>
+    <string name="menuAbout">About</string>
+    <string name="about">Yamba!\n   Created by NYC Twitter</string>
+
+    <!-- Timeline Activity -->
+    <string name="menuTimeline">Timeline</string>
+    <string name="timeline_fragment">timeline_fragment</string>
+    <string name="timeline_write">Permission to write the Yamba Timeline</string>
+    <string name="timeline_read">Permission to read the Yamba Timeline</string>
+    
+    <!-- Timeline Detail Activity -->
+    <string name="title_activity_timeline_detail">TimelineDetail</string>
+    <string name="timeline_detail_fragment">timeline_detail_fragment</string>
+    
+    <!-- Status Activity -->
+    <string name="statusCount">140</string>
+    <string name="statusStatus">Status</string>
+    <string name="statusHint">zup?</string>
+    <string name="statusSubmit">Submit</string>
+    <string name="statusSucceeded">Succeeded!</string>
+    <string name="statusFailed">Post failed!</string>
+    <string name="menuStatus">Status</string>
+    <string name="status_fragment">status_fragment</string>
+
+    <!-- Preferences -->
+    <string name="menuPrefs">Prefs</string>
+    <string name="prefsHeader">Client Preferences</string>
+    <string name="prefsTitleUser">Account</string>
+    <string name="prefsKeyUser">PREFS.USER</string>
+    <string name="prefsTitlePassword">Password</string>
+    <string name="prefsKeyPass">PREFS.PASS</string>
+    <string name="prefsTitleURI">Endpoint</string>
+    <string name="prefsKeyURI">PREFS.URI</string>
+    
+</resources>

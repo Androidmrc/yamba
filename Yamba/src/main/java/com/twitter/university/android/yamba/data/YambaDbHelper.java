@@ -29,8 +29,8 @@ class YambaDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + YambaContract.Posts.TABLE + "("
                 + YambaContract.Posts.Columns.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + YambaContract.Posts.Columns.TIMESTAMP + " INTEGER NOT NULL,"
-                + YambaContract.Posts.Columns.TRANSACTION + " STRING,"
-                + YambaContract.Posts.Columns.SENT + " INTEGER,"
+                + YambaContract.Posts.Columns.TRANSACTION + " STRING DEFAULT(NULL),"
+                + YambaContract.Posts.Columns.SENT + " STRING DEFAULT(NULL),"
                 + YambaContract.Posts.Columns.TWEET + " STRING NOT NULL" + ")");
     }
 

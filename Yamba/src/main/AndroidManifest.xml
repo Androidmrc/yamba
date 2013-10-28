@@ -9,39 +9,60 @@
             android:targetSdkVersion="18"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+
     <application
-            android:name=".YambaApplication"
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         <activity
-                android:name="com.twitter.university.android.yamba.TimelineActivity"
-                android:label="@string/app_name" >
+                android:name=".TimelineActivity"
+                android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.twitter.university.android.yamba.TweetActivity" />
-        <activity android:name="com.twitter.university.android.yamba.TimelineDetailActivity" />
-        <activity android:name=".PrefsActivity" />
+        <activity android:name=".TweetActivity"/>
+        <activity android:name=".TimelineDetailActivity"/>
+d        <activity android:name=".NewAccountActivity"/>
 
-        <service android:name="com.twitter.university.android.yamba.service.YambaService" />
+        <service android:name=".service.YambaService"/>
+
+        <service
+                android:name=".sync.AccountService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.accounts.AccountAuthenticator"
+                    android:resource="@xml/account"/>
+        </service>
+
+        <service
+                android:name=".sync.SyncService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.content.SyncAdapter"
+                    android:resource="@xml/sync"/>
+        </service>
 
         <provider
                 android:exported="false"
-                android:name="com.twitter.university.android.yamba.data.YambaProvider"
-                android:authorities="com.twitter.university.android.yamba.timeline" />
-
-        <receiver android:name="com.twitter.university.android.yamba.service.BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_RECEIVED"/>
-            </intent-filter>
-        </receiver>
+                android:name=".data.YambaProvider"
+                android:authorities="@string/yamba_authority"/>
     </application>
 
 </manifest>

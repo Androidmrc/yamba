@@ -38,9 +38,6 @@ public abstract class YambaActivity extends Activity {
             case R.id.menu_about:
                 about();
                 break;
-            case R.id.menu_prefs:
-                startActivity(new Intent(this, PrefsActivity.class));
-                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

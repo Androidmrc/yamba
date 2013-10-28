@@ -48,7 +48,7 @@ public class YambaProvider extends ContentProvider {
     public boolean onCreate() {
         Log.d(TAG, "created");
         dbHelper = new YambaDbHelper(getContext());
-        return true;
+        return dbHelper != null;
     }
 
     @Override
@@ -71,7 +71,6 @@ public class YambaProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] proj, String sel, String[] selArgs, String sort) {
         Log.d(TAG, "query");
-
 
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
@@ -125,7 +124,7 @@ public class YambaProvider extends ContentProvider {
         }
 
         if (0 < count) {
-            getContext().getContentResolver().notifyChange(uri, null);
+            getContext().getContentResolver().notifyChange(uri, null, false);
         }
 
         return count;
@@ -140,11 +139,16 @@ public class YambaProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unexpected uri: " + uri);
         }
 
+        row.put(YambaContract.Posts.Columns.TIMESTAMP, System.currentTimeMillis());
+
         long id = getDb().insert(YambaContract.Posts.TABLE, null, row);
 
-        return (0 >= id)
-            ? null
-            : uri.buildUpon().appendPath(String.valueOf(id)).build();
+        if (0 >= id) { return null; }
+
+        uri = uri.buildUpon().appendPath(String.valueOf(id)).build();
+        getContext().getContentResolver().notifyChange(uri, null, true);
+
+        return uri;
     }
 
     @Override
@@ -158,7 +162,13 @@ public class YambaProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unexpected uri: " + uri);
         }
 
-        return getDb().update(YambaContract.Posts.TABLE, row, sel, selArgs);
+        int n = getDb().update(YambaContract.Posts.TABLE, row, sel, selArgs);
+
+        if (0 < n) {
+            getContext().getContentResolver().notifyChange(uri, null, false);
+        }
+
+        return n;
     }
 
     @Override
@@ -166,12 +176,12 @@ public class YambaProvider extends ContentProvider {
         throw new UnsupportedOperationException("delete not supported");
     }
 
-    private SQLiteDatabase getDb() { return dbHelper.getWritableDatabase(); }
-
     private String appendWhere(String sel, String cond) {
         return (TextUtils.isEmpty(sel))
             ? cond
             : new StringBuilder("(").append(cond)
                 .append(") AND (").append(sel).append(")").toString();
     }
+
+    private SQLiteDatabase getDb() { return dbHelper.getWritableDatabase(); }
 }

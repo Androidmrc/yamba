@@ -14,28 +14,12 @@ public class YambaContract {
     public static class Service {
         private Service() {}
 
-        // action: post a message.  Parameter is the message
-        public static final String ACTION_POST
-            = "com.twitter.university.android.yamba.service.POST";
-        // action: post a message.  Parameter is the message
-        public static final String ACTION_POST_COMPLETE
-                = "com.twitter.university.android.yamba.service.POST_COMPLETE";
         // action: poll once.  No parameters.
         public static final String ACTION_SYNC
             = "com.twitter.university.android.yamba.service.SYNC";
-        // action: start polling.  No parameters.
-        public static final String ACTION_START_POLLING
-            = "com.twitter.university.android.yamba.service.START_POLL";
-        // action: stop polling.  No parameters.
-        public static final String ACTION_STOP_POLLING
-            = "com.twitter.university.android.yamba.service.STOP_POLL";
-
-        // Parameter to POST: String - the tweet message to be posted
-        public static final String PARAM_TWEET
-            = "com.twitter.university.android.yamba.service.TWEET";
     }
 
-    public static final String AUTHORITY = "com.twitter.university.android.yamba.timeline";
+    public static final String AUTHORITY = "com.twitter.university.android.yamba";
 
     public static final Uri BASE_URI = new Uri.Builder()
         .scheme(ContentResolver.SCHEME_CONTENT)

@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.twitter.university.android.yamba.BuildConfig;
-import com.twitter.university.android.yamba.R;
+import com.twitter.university.android.yamba.YambaApplication;
 import com.twitter.university.android.yamba.service.YambaService;
 
 import java.io.IOException;
@@ -45,30 +45,29 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "starting sync: " + AccountMgr.acctStr(account) + "@" + authority);
-            dump(TAG, extras);
         }
-
-        AccountManager mgr = AccountManager.get(ctxt);
-
-        String tt = ctxt.getString(R.string.token_type);
 
         Exception e = null;
         String token = null;
-        try { token = mgr.blockingGetAuthToken(account, tt, false); }
-        catch (OperationCanceledException oce) { e = oce; }
-        catch (AuthenticatorException ae) { e = ae; }
-        catch (IOException ioe) { e = ioe; }
+        while (true) {
+            try { token = AccountManager.get(ctxt).blockingGetAuthToken(account, AccountMgr.AUTH_TYPE_CLIENT, false); }
+            catch (OperationCanceledException oce) { e = oce; }
+            catch (AuthenticatorException ae) { e = ae; }
+            catch (IOException ioe) { e = ioe; }
 
-        if (null == token) {
-            Log.e(TAG, "auth failed: " + AccountMgr.acctStr(account) + "#" + tt, e);
-            return;
+            Log.d(TAG, "Got token: " + token);
+            if (null == token) {
+                Log.e(TAG, "auth failed for: " + AccountMgr.acctStr(account), e);
+                return;
+            }
+
+            /// ??? Not clear what to do here...
+            if (null != ((YambaApplication) ctxt.getApplicationContext()).getClientByToken(token)) {
+                break;
+            }
+            AccountManager.get(ctxt).invalidateAuthToken(account.type, token);
         }
 
-
-        // !!! make this work
-        YambaService.sync(ctxt, account.name, token, null);
-
-        // ??? force re-validation
-        mgr.invalidateAuthToken(account.type, token);
+        YambaService.sync(ctxt, token);
     }
 }

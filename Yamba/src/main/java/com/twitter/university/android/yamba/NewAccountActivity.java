@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.twitter.university.android.yamba.sync.AccountMgr;
+
 
 public class NewAccountActivity extends AccountAuthenticatorActivity {
     private static final String TAG = "ACCOUNT";
@@ -84,8 +86,7 @@ public class NewAccountActivity extends AccountAuthenticatorActivity {
             handle.getText().toString(),
             password.getText().toString(),
             endpoint.getText().toString(),
-            bundle
-        );
+            bundle);
 
         ((AccountAuthenticatorResponse) bundle
             .getParcelable(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE))
@@ -107,7 +108,8 @@ public class NewAccountActivity extends AccountAuthenticatorActivity {
         }
 
         Account account = new Account(acctName, accountType);
-        if (!AccountManager.get(this).addAccountExplicitly(account, password, null)) {
+        Bundle acctExtras = AccountMgr.buildAccountExtras(handle, endpoint);
+        if (!AccountManager.get(this).addAccountExplicitly(account, password, acctExtras)) {
             bundle.putInt(AccountManager.KEY_ERROR_CODE, -1);
             bundle.putString(
                 AccountManager.KEY_ERROR_MESSAGE,
@@ -118,11 +120,7 @@ public class NewAccountActivity extends AccountAuthenticatorActivity {
         String authority = getString(R.string.yamba_authority);
         ContentResolver.setIsSyncable(account, authority, 1);
         ContentResolver.setSyncAutomatically(account, authority, true);
-        ContentResolver.addPeriodicSync(
-            account,
-            authority,
-            null,
-            pollInterval);
+        ContentResolver.addPeriodicSync(account, authority, new Bundle(), pollInterval);
     }
 
     private boolean valid() {

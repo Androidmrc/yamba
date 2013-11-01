@@ -33,8 +33,6 @@
 
     <!-- Sync -->
     <string name="account_type">com.twitter.university.android.yamba.ACCOUNT</string>
-    <string name="token_type">AUTH_UUID</string>
-    <string name="msg_no_account">Please configure an account</string>
 
     <!-- Provider -->
     <string name="yamba_authority">com.twitter.university.android.yamba</string>

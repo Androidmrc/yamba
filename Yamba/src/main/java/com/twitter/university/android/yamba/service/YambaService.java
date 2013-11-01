@@ -1,5 +1,6 @@
 package com.twitter.university.android.yamba.service;
 
+import android.accounts.AccountManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,6 +17,7 @@ import android.util.Log;
 import com.twitter.university.android.yamba.BuildConfig;
 import com.twitter.university.android.yamba.R;
 import com.twitter.university.android.yamba.TimelineActivity;
+import com.twitter.university.android.yamba.YambaApplication;
 import com.twitter.university.android.yamba.data.YambaContract;
 
 import com.marakana.android.yamba.clientlib.YambaClient;
@@ -32,12 +34,16 @@ public class YambaService extends IntentService {
     private static final int NOTIFICATION_ID = 7;
     private static final int NOTIFICATION_INTENT_ID = 13;
 
+    private static final String PARAM_TOKEN = "PARAM_TOKEN";
+
     private static final String IS_NULL = " is null ";
     private static final String IS_EQ = "=?";
 
-    public static void sync(Context ctxt, String user, String password, String endpoint) {
+    public static void sync(Context ctxt, String token) {
+        Log.d(TAG, "sync: " + token);
         Intent i = new Intent(ctxt, YambaService.class);
         i.setAction(YambaContract.Service.ACTION_SYNC);
+        i.putExtra(PARAM_TOKEN, token);
         ctxt.startService(i);
     }
 
@@ -65,23 +71,17 @@ public class YambaService extends IntentService {
         String op = i.getAction();
         if (BuildConfig.DEBUG) { Log.d(TAG, "exec: " + op); }
         if (YambaContract.Service.ACTION_SYNC.equals(op)) {
-            doSync();
+            doSync(i.getStringExtra(PARAM_TOKEN));
         }
         else {
             Log.e(TAG, "Unexpected op: " + op);
         }
     }
 
-    private void doSync() {
+    private void doSync(String token) {
         if (BuildConfig.DEBUG) { Log.d(TAG, "sync"); }
 
-        YambaClient client = null;
-        try { client = getClient(); }
-        catch (YambaClientException e) {
-            Log.e(TAG, "Failed to get client", e);
-            return;
-        }
-
+        YambaClient client = ((YambaApplication) getApplicationContext()).getClientByToken(token);
         if (null == client) {
             Log.e(TAG, "Client is null");
             return;
@@ -228,11 +228,6 @@ public class YambaService extends IntentService {
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(pi)
                     .build());  // works as of version 16
-    }
-
-    private YambaClient getClient() throws YambaClientException {
-        // TODO: Get the client?
-        return null;
     }
 }
 

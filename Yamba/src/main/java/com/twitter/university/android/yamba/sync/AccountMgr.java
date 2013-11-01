@@ -12,12 +12,24 @@ import android.util.Log;
 import com.twitter.university.android.yamba.BuildConfig;
 import com.twitter.university.android.yamba.NewAccountActivity;
 import com.twitter.university.android.yamba.R;
+import com.twitter.university.android.yamba.YambaApplication;
 
 
+// Steve Hanna, PhD
 public class AccountMgr extends AbstractAccountAuthenticator {
     private static final String TAG = "AUTH";
 
-    public static final String KEY_TOKEN_TYPE = "AccountAuth.TOKEN_TYPE";
+    public static final String KEY_HANDLE = "YambaAuth.HANDLE";
+    public static final String KEY_ENDPOINT = "YambaAuth.ENDPOINT";
+    public static final String KEY_TOKEN_TYPE = "YambaAuth.TOKEN_TYPE";
+    public static final String AUTH_TYPE_CLIENT = "YambaAuth.AUTH_CLIENT";
+
+    public static Bundle buildAccountExtras(String handle, String endpoint) {
+        Bundle acctExtras = new Bundle();
+        acctExtras.putString(AccountMgr.KEY_HANDLE, handle);
+        acctExtras.putString(AccountMgr.KEY_ENDPOINT, endpoint);
+        return acctExtras;
+    }
 
     public static final String acctStr(Account account) {
         return "(" + account.name + "," + account.type + ")";
@@ -41,6 +53,7 @@ public class AccountMgr extends AbstractAccountAuthenticator {
     {
         if (BuildConfig.DEBUG) {
             Log.d( TAG, "add account: " + accountType + "#" + authTokenType + " @" + resp);
+            SyncAdapter.dump(TAG, options);
         }
 
         Bundle reply = new Bundle();
@@ -74,38 +87,37 @@ public class AccountMgr extends AbstractAccountAuthenticator {
     {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "token request @" + acctStr(account));
+            SyncAdapter.dump(TAG, options);
         }
-//    String token = obtainToken(authTokenType);
-//    if (null == token) {
-//        bundle.putInt(AccountManager.KEY_ERROR_CODE, -1);
-//        bundle.putString(
-//            AccountManager.KEY_ERROR_MESSAGE,
-//            "Unrecognized token type");
-//        return;
-//    }
-//    bundle.putString(AccountManager.KEY_AUTHTOKEN, token);
 
         Bundle reply = new Bundle();
         reply.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type);
         reply.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
         reply.putString(KEY_TOKEN_TYPE, authTokenType);
 
-        if (!ctxt.getString(R.string.account_type).equals(account.type)
-                || !ctxt.getString(R.string.app_name).equals(account.name))
-        {
+        if (!ctxt.getString(R.string.account_type).equals(account.type)) {
+            reply.putString(AccountManager.KEY_ERROR_MESSAGE, "Unrecognized account type");
             reply.putInt(AccountManager.KEY_ERROR_CODE, -1);
-            reply.putString(AccountManager.KEY_ERROR_MESSAGE, "Unrecognized account");
+            Log.d(TAG, "unrecognized account type: " + acctStr(account));
             return reply;
         }
 
-        String token = obtainToken(authTokenType);
-        if (null == token) {
-            reply.putInt(AccountManager.KEY_ERROR_CODE, -1);
-            reply.putString(AccountManager.KEY_ERROR_MESSAGE, "Unrecognized token type");
+        if (!AUTH_TYPE_CLIENT.equals(authTokenType)) {
+            reply.putString(AccountManager.KEY_ERROR_MESSAGE, "Unrecognized authentication type");
+            reply.putInt(AccountManager.KEY_ERROR_CODE, -2);
+            Log.d(TAG, "unrecognized auth type: " + authTokenType);
             return reply;
         }
+
+        AccountManager mgr = AccountManager.get(ctxt);
+        String token = ((YambaApplication) ctxt.getApplicationContext()).createClient(
+            account,
+            mgr.getUserData(account, AccountMgr.KEY_HANDLE),
+            mgr.getPassword(account),
+            mgr.getUserData(account, AccountMgr.KEY_ENDPOINT));
 
         reply.putString(AccountManager.KEY_AUTHTOKEN, token);
+
         return reply;
     }
 
@@ -149,13 +161,4 @@ public class AccountMgr extends AbstractAccountAuthenticator {
     public String getAuthTokenLabel(String authTokenType) {
         throw new UnsupportedOperationException("Update credentials not supported.");
     }
-
-    // incidentally, we use the installation id as the authentication token
-    private String obtainToken(String tt) {
-        String token = (!ctxt.getString(R.string.token_type).equals(tt))
-                ? null
-                : null; //id.getInstallationId();
-        if (BuildConfig.DEBUG) { Log.d(TAG, "token @" + tt + ": " + token); }
-        return token;
-   }
 }

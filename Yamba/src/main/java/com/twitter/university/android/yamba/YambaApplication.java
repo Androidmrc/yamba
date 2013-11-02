@@ -17,11 +17,9 @@ import java.util.UUID;
 public class YambaApplication extends Application {
     private static final String TAG = "APP";
 
-    private static final Map<Account, String> accounts
-        = new HashMap<Account, String>();
+    private static final Map<Account, String> accounts = new HashMap<Account, String>();
 
-    private static final Map<String, YambaClient> clients
-        = new HashMap<String, YambaClient>();
+    private static final Map<String, YambaClient> clients = new HashMap<String, YambaClient>();
 
 
     public YambaClient getClientByToken(String token) { return clients.get(token); }

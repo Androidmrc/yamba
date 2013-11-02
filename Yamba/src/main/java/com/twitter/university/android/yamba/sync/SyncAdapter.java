@@ -61,13 +61,13 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 return;
             }
 
-            /// ??? Not clear what to do here...
-            if (null != ((YambaApplication) ctxt.getApplicationContext()).getClientByToken(token)) {
-                break;
+            if (null == ((YambaApplication) ctxt.getApplicationContext()).getClientByToken(token)) {
+                AccountManager.get(ctxt).invalidateAuthToken(account.type, token);
+                continue;
             }
-            AccountManager.get(ctxt).invalidateAuthToken(account.type, token);
-        }
 
+            break;
+        }
         YambaService.sync(ctxt, token);
     }
 }

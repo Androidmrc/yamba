@@ -137,7 +137,7 @@ public class AccountMgr extends AbstractAccountAuthenticator {
             Account account,
             String[] features)
     {
-        throw new UnsupportedOperationException("Update credentials not supported.");
+        throw new UnsupportedOperationException("Has features not supported.");
     }
 
     @Override
@@ -146,7 +146,7 @@ public class AccountMgr extends AbstractAccountAuthenticator {
             Account account,
             Bundle options)
     {
-        throw new UnsupportedOperationException("Update credentials not supported.");
+        throw new UnsupportedOperationException("Confirm credentials not supported.");
     }
 
     @Override
@@ -154,11 +154,11 @@ public class AccountMgr extends AbstractAccountAuthenticator {
             AccountAuthenticatorResponse response,
             String accountType)
     {
-        throw new UnsupportedOperationException("Update credentials not supported.");
+        throw new UnsupportedOperationException("Edit properties not supported.");
     }
 
     @Override
     public String getAuthTokenLabel(String authTokenType) {
-        throw new UnsupportedOperationException("Update credentials not supported.");
+        throw new UnsupportedOperationException("Auth Token Label not supported.");
     }
 }

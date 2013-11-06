@@ -15,7 +15,6 @@ import com.twitter.university.android.yamba.R;
 import com.twitter.university.android.yamba.YambaApplication;
 
 
-// Steve Hanna, PhD
 public class AccountMgr extends AbstractAccountAuthenticator {
     private static final String TAG = "AUTH";
 
